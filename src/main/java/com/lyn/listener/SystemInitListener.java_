@@ -1,0 +1,26 @@
+package com.lyn.listener;
+
+
+public class SystemInitListener implements ServletContextListener {
+
+    @Override
+    public void contextDestroyed(ServletContextEvent event) {
+        Application.destroy();
+    }
+
+    @Override
+    public void contextInitialized(ServletContextEvent event) {
+        logger.info("系统自定义初始化开始...");
+        SpringBeanContext beanContext = new SpringBeanContext(event.getServletContext());
+        Application.setBeanContext(beanContext);
+        logger.info("系统自定义初始化[OK]");
+        otherInit(event);
+    }
+
+    public void otherInit(ServletContextEvent event) {
+        SystemDataHolder.init();
+        SystemDataHolder.setParam(SystemDataHolder.WEBCONTEXT_REAL_PATH, event.getServletContext().getRealPath("/"));
+        SystemDataHolder.setParam(SystemDataHolder.WEBCONTEXT_PATH, event.getServletContext().getContextPath());
+    }
+
+}

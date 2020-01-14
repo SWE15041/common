@@ -1,6 +1,6 @@
 package com.lyn.util;
 
-import com.lyn.myEnum.Color;
+import com.lyn.constant.Color;
 import org.junit.Test;
 
 import java.util.Iterator;

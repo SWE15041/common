@@ -6,6 +6,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 
+/**
+ * 使用：
+ * 1. 自定义枚举类需要继承接口类com.lyn.myEnum.Enumeration；
+ * 2.
+ *
+ */
 public class EnumUtil {
 
     /**
