@@ -3,18 +3,22 @@ package com.lyn.util;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
 /**
- * 1.系统参数初始化
+ * 1.创建资源文件，放置在类路径下，文件名：system.properties
+ * 2.系统参数初始化：SystemParamUtil.init()
+ * 3.调用
  *
  * @author lyn
  */
 
 public class SystemParamUtil {
 
+    /**
+     * 系统参数缓存
+     */
     private CacheDataModel systemCache = new CacheDataModel();
 
     private Properties props = null;
@@ -22,16 +26,17 @@ public class SystemParamUtil {
     private static SystemParamUtil instance = null;
 
     /**
-     * web目录的绝对地址
+     * web目录的绝对地址(暂时不使用)
      */
     public static final String WEBCONTEXT_REAL_PATH = "webContextRealPath";
 
     /**
-     * web上下文
+     * web上下文(暂时不使用)
      */
     public static final String WEBCONTEXT_PATH = "webContextPath";
+
     /**
-     * system.properties
+     * 系统资源存放文件，默认放在类路径下
      */
     private final static String DEFAULT_SYSTEM_PROPERTIES = "system.properties";
 
@@ -92,6 +97,7 @@ public class SystemParamUtil {
 
     /**
      * 为什么要指定数据类型
+     *
      * @param paramKey
      * @param requiredType
      * @param <T>
@@ -132,31 +138,14 @@ public class SystemParamUtil {
 
 
     public static <T> T getParam(String paramKey, Class<T> clazz) {
-        return  getInstance().getSystemParam(paramKey, clazz);
+        return getInstance().getSystemParam(paramKey, clazz);
     }
 
-    public static void main(String[] args) {
-/*
-        SystemParamUtil.init();
-//        event.getServletContext().getRealPath("/")
-        SystemParamUtil.setParam(SystemParamUtil.WEBCONTEXT_REAL_PATH, "/");
-//        event.getServletContext().getContextPath()
-        SystemParamUtil.setParam(SystemParamUtil.WEBCONTEXT_PATH, "/");
-
-*/
-        String param = getParam("mail.smtp.host", String.class);
-        System.out.println(param);
-        Object param1 = getParam("mail.smtp.host", Object.class);
-        System.out.println(param1);
-        String test = getParam("test", String.class);
-        System.out.println(test);
-
-    }
 }
 
 class CacheDataModel {
 
-    private Map<String, Object> cacheMap = new HashMap<String, Object>();
+    private Map<String, Object> cacheMap = new HashMap<>();
 
     public Object get(String key) {
         return cacheMap.get(key);
